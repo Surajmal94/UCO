@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dost Ki Detail Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+    }
+    .readonly {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <h2>Dost Ki Detail Form</h2>
+
+  <div id="formDiv">
+    <input type="text" id="name" placeholder="Naam">
+    <input type="tel" id="phone" placeholder="Mobile Number">
+    <input type="email" id="email" placeholder="Email">
+    <button onclick="saveData()">Submit</button>
+  </div>
+
+  <div id="displayDiv" style="display:none;">
+    <p><strong>Naam:</strong> <span id="savedName"></span></p>
+    <p><strong>Mobile:</strong> <span id="savedPhone"></span></p>
+    <p><strong>Email:</strong> <span id="savedEmail"></span></p>
+  </div>
+
+  <script>
+    // Function to save data to localStorage
+    function saveData() {
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const email = document.getElementById("email").value;
+
+      if (name && phone && email) {
+        localStorage.setItem("dostName", name);
+        localStorage.setItem("dostPhone", phone);
+        localStorage.setItem("dostEmail", email);
+        showData();
+      } else {
+        alert("Sabhi fields bharna zaroori hai!");
+      }
+    }
+
+    // Function to show data and make it read-only
+    function showData() {
+      const name = localStorage.getItem("dostName");
+      const phone = localStorage.getItem("dostPhone");
+      const email = localStorage.getItem("dostEmail");
+
+      if (name && phone && email) {
+        document.getElementById("formDiv").style.display = "none";
+        document.getElementById("displayDiv").style.display = "block";
+        document.getElementById("savedName").textContent = name;
+        document.getElementById("savedPhone").textContent = phone;
+        document.getElementById("savedEmail").textContent = email;
+      }
+    }
+
+    // Check on page load
+    window.onload = showData;
+  </script>
+</body>
+</html>
